@@ -1,0 +1,35 @@
+This class diagram clarifies the entities and relations between these entities for a transportation app.
+
+Users can be either drivers or passengers, so we implement an abstract class (AppUser) to align with OOP principle: abstraction, so we achieve reusability.
+Every app user has user info we utilized them in one entity and referenced to it by userInfoID, every user has UserInfo so the relationship between AppUser and UserInfo is aggregation.
+
+The passenger can request a drive from an origin to a destination at a specific time for a specific number of passengers.
+So I created the entity Request that implements those parameters in addition to the attribute 'accepted' hat shows the status of the request if accepted or not.
+
+ On the other hand, the driver can accept the request. 
+So both passengers and drivers USE Request so the relationship is simple association.
+
+In addition to that the Driver should have a License,The Driver class owns an instance of the DrivingLicense and can't be constructed without it so that's a composition relationship.
+
+passengers and drivers shall be able to see their requests that they apply or the ones they accept.
+so I added the following methods:
+for driver:
++ acceptRequest( request: Request):void
++ showAcceptedRequests(): ArrayList<Request>
+for passenger:
++ requestDrive(request:Request):void
++ appliedRequests():ArrayList<Request>
+
+ Furthermore Drivers can have different types of vehicles, such as cars, vans, jeeps, and buses. These vehicles differ in their number of seats available and the baggage size.
+
+So as I did in the AppUser to achieve abstraction. I created an abstract class Vehicle.
+Car, Van, Bus, and any different type of vehicle implements the class vehicle.
+Jeep is a type of the car so its inheritance. the Jeep extends Car.
+
+The driver has one vehicle (or many) so that's. an aggregation relationship between Driver and Vehicle.
+
+For the vehicle class I created separated classes for Model and FuelType  for a more structured and scalable design, to ensure consistency, and if we need to update or modify the properties of a fuel type or model, we can do so in a single place without traversing all the vehicles records so we achieve maintainability.
+Same for Location entity, I've created a separate class and just used simple association with Request that uses it to describe origin and destination, and UserInfo that uses it for the address.
+
+
+
